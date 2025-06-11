@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+.env
+.env.local
+dist/
+build/
+coverage/
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Optional:
+*.log
