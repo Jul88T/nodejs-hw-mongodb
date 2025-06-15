@@ -15,5 +15,6 @@ router.get('/:contactId', ctrlWrapper(getContactById));
 router.post('/', ctrlWrapper(addContact));
 router.patch('/:contactId', ctrlWrapper(updateContact));
 router.delete('/:contactId', ctrlWrapper(deleteContact));
+router.post('/', ctrlWrapper(addContact));
 
 export default router;
