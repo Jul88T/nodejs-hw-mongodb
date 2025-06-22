@@ -3,16 +3,25 @@ import {
   createContact,
   removeContact,
   patchContact,
+  listContacts,
 } from '../services/contacts.js';
 import Contact from '../models/contact.js';
 
 export const getAllContacts = async (req, res) => {
-  const contacts = await Contact.find();
-  res.json({
-    status: 200,
-    message: 'Successfully found contacts!',
-    data: contacts,
-  });
+  try {
+    const result = await listContacts(req.user.id, req.query);
+
+    res.status(200).json({
+      status: 200,
+      message: 'Successfully found contacts!',
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
 };
 
 export const getContactById = async (req, res) => {

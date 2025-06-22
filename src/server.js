@@ -12,6 +12,11 @@ export const setupServer = () => {
   app.use(pino());
   app.use(express.json());
 
+  app.use((req, res, next) => {
+    req.user = { id: '68478fb0246adfe5a8b9bdce' };
+    next();
+  });
+
   app.use('/contacts', contactsRouter);
 
   app.use(notFoundHandler);
