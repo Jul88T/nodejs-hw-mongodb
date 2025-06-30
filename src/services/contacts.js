@@ -1,7 +1,6 @@
 import Contact from '../models/contact.js';
 
 export const listContacts = async (userId, query) => {
-  console.log('USER ID:', userId);
   const {
     page = 1,
     perPage = 10,
@@ -18,8 +17,7 @@ export const listContacts = async (userId, query) => {
     sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
   }
 
-  const filter = {};
-
+  const filter = { userId };
   if (type) filter.contactType = type;
   if (typeof isFavourite !== 'undefined')
     filter.isFavourite = isFavourite === 'true';
@@ -44,18 +42,20 @@ export const listContacts = async (userId, query) => {
   };
 };
 
-export const getContactById = async (id) => {
-  return Contact.findById(id);
+export const getContactById = async (id, userId) => {
+  return Contact.findOne({ _id: id, userId });
 };
 
-export const createContact = async (contactData) => {
-  return await Contact.create(contactData);
+export const createContact = async (contactData, userId) => {
+  return await Contact.create({ ...contactData, userId });
 };
 
-export const patchContact = async (id, data) => {
-  return await Contact.findByIdAndUpdate(id, data, { new: true });
+export const patchContact = async (id, data, userId) => {
+  return await Contact.findOneAndUpdate({ _id: id, userId }, data, {
+    new: true,
+  });
 };
 
-export const removeContact = async (id) => {
-  return await Contact.findByIdAndDelete(id);
+export const removeContact = async (id, userId) => {
+  return await Contact.findOneAndDelete({ _id: id, userId });
 };
