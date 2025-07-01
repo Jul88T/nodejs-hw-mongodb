@@ -23,11 +23,18 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const { accessToken, refreshToken } = await loginUser(req.body);
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    });
+    const { accessToken, refreshToken, sessionId } = await loginUser(req.body);
+    res
+      .cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      })
+
+      .cookie('sessionId', sessionId.toString(), {
+        httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      });
+
     res.status(200).json({
       status: 'success',
       message: 'Successfully logged in an user!',
