@@ -10,11 +10,9 @@ export const register = async (req, res, next) => {
   try {
     const newUser = await registerUser(req.body);
     res.status(201).json({
-      status: 'success',
+      status: 201,
       message: 'Successfully registered a user!',
-      data: {
-        user: newUser,
-      },
+      data: newUser,
     });
   } catch (error) {
     next(error);
@@ -36,7 +34,7 @@ export const login = async (req, res, next) => {
       });
 
     res.status(200).json({
-      status: 'success',
+      status: 200,
       message: 'Successfully logged in an user!',
       data: { accessToken },
     });
@@ -52,7 +50,7 @@ export const refresh = async (req, res, next) => {
 
     const accessToken = await refreshSession(refreshToken);
     res.status(200).json({
-      status: 'success',
+      status: 200,
       message: 'Successfully refreshed a session!',
       data: { accessToken },
     });

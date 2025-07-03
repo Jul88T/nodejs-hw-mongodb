@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
 import createError from 'http-errors';
+import Session from '../models/session.js';
 
 const { JWT_ACCESS_SECRET } = process.env;
 
-export const authenticate = (req, res, next) => {
+export const authenticate = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -14,6 +15,11 @@ export const authenticate = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_ACCESS_SECRET);
+
+    const session = await Session.findOne({ accessToken: token });
+    if (!session) {
+      return next(createError(401, 'Session not found'));
+    }
 
     req.user = {
       id: decoded.userId,
