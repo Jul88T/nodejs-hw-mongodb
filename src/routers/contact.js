@@ -15,19 +15,34 @@ import {
   updateContactSchema,
 } from '../schemas/contactsSchemas.js';
 
+import upload from '../middlewares/upload.js';
+
 const router = express.Router();
 
 router.get('/', ctrlWrapper(getAllContacts));
 
 router.get('/:contactId', isValidId, ctrlWrapper(getContactById));
 
-router.post('/', validateBody(createContactSchema), ctrlWrapper(addContact));
+router.post(
+  '/',
+  upload.single('photo'),
+  validateBody(createContactSchema),
+  ctrlWrapper(addContact)
+);
 
 router.patch(
   '/:contactId',
   isValidId,
+  upload.single('photo'),
   validateBody(updateContactSchema),
   ctrlWrapper(updateContact)
+);
+
+router.post(
+  '/',
+  upload.single('photo'),
+  validateBody(createContactSchema),
+  ctrlWrapper(addContact)
 );
 
 router.delete('/:contactId', isValidId, ctrlWrapper(deleteContact));
