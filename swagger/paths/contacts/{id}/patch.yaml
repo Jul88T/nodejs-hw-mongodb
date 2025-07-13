@@ -1,0 +1,45 @@
+patch:
+  tags:
+    - Contacts
+  summary: Update contact by ID
+  operationId: updateContact
+  description: Update contact info
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: contactId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Contact ID
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+            favorite:
+              type: boolean
+            photo:
+              type: string
+              format: binary
+              description: Upload new photo
+  responses:
+    '200':
+      description: Contact updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Contact'
+    '401':
+      $ref: '../../../components/responses/401.yaml'
+    '404':
+      description: Contact not found

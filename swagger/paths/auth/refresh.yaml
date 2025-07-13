@@ -1,0 +1,11 @@
+post:
+  tags:
+    - Auth
+  summary: Refresh access token
+  operationId: refreshToken
+  description: Generate new access token using refresh token
+  responses:
+    '200':
+      description: New access token
+    '401':
+      $ref: '../../components/responses/401.yaml'

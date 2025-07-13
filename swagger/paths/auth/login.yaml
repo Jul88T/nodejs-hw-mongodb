@@ -1,0 +1,27 @@
+post:
+  tags:
+    - Auth
+  summary: User login
+  operationId: loginUser
+  description: Login user with email and password
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+              example: johndoe@example.com
+            password:
+              type: string
+              example: password123
+  responses:
+    '200':
+      description: Successfully logged in
+    '401':
+      $ref: '../../components/responses/401.yaml'
