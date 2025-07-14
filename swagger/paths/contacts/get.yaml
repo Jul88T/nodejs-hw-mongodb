@@ -1,54 +1,53 @@
-get:
-  tags:
-    - Contacts
-  summary: Get all contacts
-  operationId: getAllContacts
-  description: Get paginated, filtered, and sorted contact list
-  security:
-    - bearerAuth: []
-  parameters:
-    - name: page
-      in: query
-      schema:
-        type: integer
-      description: Page number
-    - name: limit
-      in: query
-      schema:
-        type: integer
-      description: Items per page
-    - name: favorite
-      in: query
-      schema:
-        type: boolean
-      description: Filter by favorite status
-    - name: sortBy
-      in: query
-      schema:
-        type: string
-        enum: [name, email, phone]
-      description: Sort by ascending field
-    - name: sortByDesc
-      in: query
-      schema:
-        type: string
-        enum: [name, email, phone]
-      description: Sort by descending field
-    - name: filter
-      in: query
-      schema:
-        type: string
-      description: Filter by fields (e.g. "name|email")
-  responses:
-    '200':
-      description: A list of contacts
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Contact'
-    '401':
-      $ref: '../../../components/responses/401.yaml'
-    '404':
-      description: Not found
+tags:
+  - Contacts
+summary: Get all contacts
+operationId: getAllContacts
+description: Get paginated, filtered, and sorted contact list
+security:
+  - bearerAuth: []
+parameters:
+  - name: page
+    in: query
+    schema:
+      type: integer
+    description: Page number
+  - name: limit
+    in: query
+    schema:
+      type: integer
+    description: Items per page
+  - name: favorite
+    in: query
+    schema:
+      type: boolean
+    description: Filter by favorite status
+  - name: sortBy
+    in: query
+    schema:
+      type: string
+      enum: [name, email, phone]
+    description: Sort by ascending field
+  - name: sortByDesc
+    in: query
+    schema:
+      type: string
+      enum: [name, email, phone]
+    description: Sort by descending field
+  - name: filter
+    in: query
+    schema:
+      type: string
+    description: Filter by fields (e.g. "name|email")
+responses:
+  '200':
+    description: A list of contacts
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../../components/schemas/contact.yaml
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    description: Not found

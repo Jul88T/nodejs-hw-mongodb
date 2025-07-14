@@ -1,46 +1,21 @@
-# type: object
-# properties:
-#   _id:
-#     type: string
-#     example: '64fc70a50bd51c6b53992e97'
-#   name:
-#     type: string
-#     example: 'John Doe'
-#   email:
-#     type: string
-#     example: 'johndoe@example.com'
-#   phone:
-#     type: string
-#     example: '+123456789'
-#   favorite:
-#     type: boolean
-#     example: false
-# required:
-#   - name
-#   - email
-#   - phone
-Contact:
-  type: object
-  properties:
-    _id:
-      type: string
-      example: '64fc70a50bd51c6b53992e97'
-    name:
-      type: string
-      example: 'John Doe'
-    email:
-      type: string
-      example: 'johndoe@example.com'
-    phone:
-      type: string
-      example: '+123456789'
-    favorite:
-      type: boolean
-      example: false
-    photo:
-      type: string
-      example: 'https://res.cloudinary.com/your-cloud/image/upload/v123456/photo.jpg'
-  required:
-    - name
-    - email
-    - phone
+type: object
+properties:
+  _id:
+    type: string
+    example: '64fc70a50bd51c6b53992e97'
+  name:
+    type: string
+    example: 'John Doe'
+  email:
+    type: string
+    example: 'johndoe@example.com'
+  phone:
+    type: string
+    example: '+123456789'
+  favorite:
+    type: boolean
+    example: false
+required:
+  - name
+  - email
+  - phone

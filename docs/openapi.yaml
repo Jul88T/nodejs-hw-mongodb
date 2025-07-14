@@ -1,3 +1,120 @@
+# openapi: 3.1.0
+# info:
+#   version: 1.0.0
+#   title: Contacts API
+#   license:
+#     name: Apache 2.0
+#     url: http://www.apache.org/licenses/LICENSE-2.0.html
+#   description: Простий API для керування контактами з авторизацією та email-підтримкою
+
+# tags:
+#   - name: Contacts
+#     description: Операції з контактами
+#   - name: Auth
+#     description: Авторизація та сесії
+
+# servers:
+#   - url: http://localhost:3000
+#   - url: https://app-contacts-7ejq.onrender.com
+
+# components:
+#   securitySchemes:
+#     bearerAuth:
+#       type: http
+#       scheme: bearer
+
+# security:
+#   - bearerAuth: []
+
+# paths:
+#   /contacts:
+#     get:
+#       $ref: ../swagger/paths/contacts/get.yaml
+#     post:
+#       $ref: ../swagger/paths/contacts/post.yaml
+
+#   /contacts/{contactId}:
+#     get:
+#       $ref: ../swagger/paths/contacts/{id}/get.yaml
+#     patch:
+#       $ref: ../swagger/paths/contacts/{id}/patch.yaml
+#     delete:
+#       $ref: ../swagger/paths/contacts/{id}/delete.yaml
+
+#   /auth/register:
+#     $ref: ../swagger/paths/auth/register.yaml
+
+#   /auth/login:
+#     $ref: ../swagger/paths/auth/login.yaml
+
+#   /auth/refresh:
+#     $ref: ../swagger/paths/auth/refresh.yaml
+
+#   /auth/logout:
+#     $ref: ../swagger/paths/auth/logout.yaml
+
+# openapi: 3.1.0
+# info:
+#   version: 1.0.0
+#   title: Contacts API
+#   license:
+#     name: Apache 2.0
+#     url: http://www.apache.org/licenses/LICENSE-2.0.html
+#   description: Простий API для керування контактами з авторизацією та email-підтримкою
+
+# tags:
+#   - name: Contacts
+#     description: Операції з контактами
+#   - name: Auth
+#     description: Авторизація та сесії
+
+# servers:
+#   - url: http://localhost:3000
+#   - url: https://app-contacts-7ejq.onrender.com
+
+# components:
+#   securitySchemes:
+#     bearerAuth:
+#       type: http
+#       scheme: bearer
+#   schemas:
+#     Contact:
+#       $ref: ../swagger/components/schemas/contact.yaml
+#     Error:
+#       $ref: ../swagger/components/schemas/error.yaml
+#   responses:
+#     401:
+#       $ref: ../swagger/components/responses/401.yaml
+
+# security:
+#   - bearerAuth: []
+
+# paths:
+#   /contacts:
+#     get:
+#       $ref: ../swagger/paths/contacts/get.yaml
+#     post:
+#       $ref: ../swagger/paths/contacts/post.yaml
+
+#   /contacts/{contactId}:
+#     get:
+#       $ref: ../swagger/paths/contacts/{id}/get.yaml
+#     patch:
+#       $ref: ../swagger/paths/contacts/{id}/patch.yaml
+#     delete:
+#       $ref: ../swagger/paths/contacts/{id}/delete.yaml
+
+#   /auth/register:
+#     $ref: ../swagger/paths/auth/register.yaml
+
+#   /auth/login:
+#     $ref: ../swagger/paths/auth/login.yaml
+
+#   /auth/refresh:
+#     $ref: ../swagger/paths/auth/refresh.yaml
+
+#   /auth/logout:
+#     $ref: ../swagger/paths/auth/logout.yaml
 openapi: 3.1.0
 info:
   version: 1.0.0
@@ -22,6 +139,14 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+  schemas:
+    Contact:
+      $ref: ../swagger/components/schemas/contact.yaml
+    Error:
+      $ref: ../swagger/components/schemas/error.yaml
+  responses:
+    Unauthorized:
+      $ref: ../swagger/components/responses/401.yaml
 
 security:
   - bearerAuth: []
