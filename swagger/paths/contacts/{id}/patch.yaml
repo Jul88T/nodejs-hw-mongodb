@@ -2,9 +2,10 @@ tags:
   - Contacts
 summary: Update contact by ID
 operationId: updateContact
-description: Update contact info
+description: Update contact info (partial update)
 security:
   - bearerAuth: []
+
 parameters:
   - name: contactId
     in: path
@@ -12,6 +13,7 @@ parameters:
     schema:
       type: string
     description: Contact ID
+
 requestBody:
   required: true
   content:
@@ -21,23 +23,38 @@ requestBody:
         properties:
           name:
             type: string
+            example: John Doe
           email:
             type: string
+            format: email
+            example: johndoe@example.com
           phone:
             type: string
+            example: '+123456789'
           favorite:
             type: boolean
+            example: true
           photo:
             type: string
             format: binary
             description: Upload new photo
+
 responses:
   '200':
     description: Contact updated
     content:
       application/json:
         schema:
-          $ref: ../../../components/schemas/contact.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Contact updated successfully
+            data:
+              $ref: '../../../components/schemas/contact.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '404':
@@ -45,4 +62,4 @@ responses:
     content:
       application/json:
         schema:
-          $ref: ../../../components/schemas/error.yaml
+          $ref: '../../../components/schemas/error.yaml'

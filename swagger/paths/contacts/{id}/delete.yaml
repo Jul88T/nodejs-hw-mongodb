@@ -2,7 +2,7 @@ tags:
   - Contacts
 summary: Delete contact by ID
 operationId: deleteContact
-description: Delete contact
+description: Delete a contact by its ID
 security:
   - bearerAuth: []
 parameters:
@@ -13,16 +13,8 @@ parameters:
       type: string
     description: Contact ID
 responses:
-  '200':
-    description: Contact deleted successfully
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            message:
-              type: string
-              example: Contact deleted
+  '204':
+    description: Contact deleted successfully (no content)
   '401':
     $ref: '../../../components/responses/401.yaml'
   '404':
@@ -30,4 +22,4 @@ responses:
     content:
       application/json:
         schema:
-          $ref: ../../../components/schemas/error.yaml
+          $ref: '../../../components/schemas/error.yaml'

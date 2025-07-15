@@ -50,71 +50,125 @@
           {
             "name": "page",
             "in": "query",
+            "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
             },
-            "description": "Page number"
+            "description": "Номер сторінки (pagination)"
           },
           {
-            "name": "limit",
+            "name": "perPage",
             "in": "query",
+            "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1,
+              "default": 10
             },
-            "description": "Items per page"
-          },
-          {
-            "name": "favorite",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "description": "Filter by favorite status"
+            "description": "Кількість контактів на сторінку"
           },
           {
             "name": "sortBy",
             "in": "query",
+            "required": false,
             "schema": {
               "type": "string",
               "enum": [
                 "name",
                 "email",
-                "phone"
+                "phone",
+                "contactType",
+                "createdAt"
               ]
             },
-            "description": "Sort by ascending field"
+            "description": "Поле для сортування"
           },
           {
-            "name": "sortByDesc",
+            "name": "sortOrder",
             "in": "query",
+            "required": false,
             "schema": {
               "type": "string",
               "enum": [
-                "name",
-                "email",
-                "phone"
-              ]
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
             },
-            "description": "Sort by descending field"
+            "description": "Напрям сортування (asc або desc)"
           },
           {
-            "name": "filter",
+            "name": "type",
             "in": "query",
+            "required": false,
             "schema": {
               "type": "string"
             },
-            "description": "Filter by fields (e.g. \"name|email\")"
+            "description": "Тип контакту"
+          },
+          {
+            "name": "isFavourite",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Фільтр за обраністю контакту"
           }
         ],
         "responses": {
           "200": {
-            "description": "A list of contacts",
+            "description": "Список контактів з мета-інформацією про пагінацію",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contacts!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/contact"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 10
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 35
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 4
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -146,18 +200,20 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "name",
+                  "email",
+                  "phone"
+                ],
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "John Doe"
                   },
                   "email": {
-                    "type": "string"
-                  },
-                  "phone": {
-                    "type": "string"
-                  },
-                  "favorite": {
-                    "type": "boolean"
+                    "type": "string",
+                    "format": "email",
+                    "example": "johndoe@example.com"
                   },
                   "photo": {
                     "type": "string",
@@ -175,7 +231,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contact created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/contact"
+                    }
+                  }
                 }
               }
             }
@@ -252,7 +321,7 @@
         ],
         "summary": "Update contact by ID",
         "operationId": "updateContact",
-        "description": "Update contact info",
+        "description": "Update contact info (partial update)",
         "security": [
           {
             "bearerAuth": []
@@ -277,16 +346,21 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "John Doe"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "email",
+                    "example": "johndoe@example.com"
                   },
                   "phone": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "+123456789"
                   },
                   "favorite": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": true
                   },
                   "photo": {
                     "type": "string",
@@ -304,7 +378,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contact updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/contact"
+                    }
+                  }
                 }
               }
             }
@@ -330,7 +417,7 @@
         ],
         "summary": "Delete contact by ID",
         "operationId": "deleteContact",
-        "description": "Delete contact",
+        "description": "Delete a contact by its ID",
         "security": [
           {
             "bearerAuth": []
@@ -348,21 +435,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Contact deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Contact deleted"
-                    }
-                  }
-                }
-              }
-            }
+          "204": {
+            "description": "Contact deleted successfully (no content)"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -387,7 +461,7 @@
         ],
         "summary": "Register new user",
         "operationId": "registerUser",
-        "description": "Register a new user with email and password",
+        "description": "Register a new user with name, email and password",
         "requestBody": {
           "required": true,
           "content": {
@@ -395,16 +469,23 @@
               "schema": {
                 "type": "object",
                 "required": [
+                  "name",
                   "email",
                   "password"
                 ],
                 "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
                   "email": {
                     "type": "string",
+                    "format": "email",
                     "example": "johndoe@example.com"
                   },
                   "password": {
                     "type": "string",
+                    "format": "password",
                     "example": "password123"
                   }
                 }
@@ -417,7 +498,14 @@
             "description": "User registered successfully"
           },
           "400": {
-            "description": "Validation error"
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
           }
         }
       }
@@ -521,15 +609,11 @@
         "$ref": "#/components/schemas/error"
       },
       "contact": {
-        "required": [
-          "name",
-          "email",
-          "phone"
-        ],
+        "type": "object",
         "properties": {
           "_id": {
             "type": "string",
-            "example": "64a4b6d43f9e8426d9f4f8e2"
+            "example": "64fc70a50bd51c6b53992e97"
           },
           "name": {
             "type": "string",
@@ -537,22 +621,22 @@
           },
           "email": {
             "type": "string",
-            "example": "john@example.com"
+            "example": "johndoe@example.com"
           },
           "phone": {
             "type": "string",
-            "example": "+1234567890"
+            "example": "+123456789"
           },
           "favorite": {
             "type": "boolean",
             "example": false
-          },
-          "photo": {
-            "type": "string",
-            "format": "uri",
-            "example": "http://example.com/photo.jpg"
           }
-        }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone"
+        ]
       },
       "error": {
         "type": "object",

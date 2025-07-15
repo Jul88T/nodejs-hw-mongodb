@@ -3,7 +3,7 @@ post:
     - Auth
   summary: Register new user
   operationId: registerUser
-  description: Register a new user with email and password
+  description: Register a new user with name, email and password
   requestBody:
     required: true
     content:
@@ -11,17 +11,27 @@ post:
         schema:
           type: object
           required:
+            - name
             - email
             - password
           properties:
+            name:
+              type: string
+              example: John Doe
             email:
               type: string
+              format: email
               example: johndoe@example.com
             password:
               type: string
+              format: password
               example: password123
   responses:
     '201':
       description: User registered successfully
     '400':
       description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/error.yaml
