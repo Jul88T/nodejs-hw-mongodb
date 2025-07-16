@@ -215,6 +215,18 @@
                     "format": "email",
                     "example": "johndoe@example.com"
                   },
+                  "phone": {
+                    "type": "string",
+                    "example": "+123456789"
+                  },
+                  "favorite": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "contactType": {
+                    "type": "string",
+                    "example": "work"
+                  },
                   "photo": {
                     "type": "string",
                     "format": "binary",
@@ -361,6 +373,10 @@
                   "favorite": {
                     "type": "boolean",
                     "example": true
+                  },
+                  "contactType": {
+                    "type": "string",
+                    "example": "personal"
                   },
                   "photo": {
                     "type": "string",
@@ -619,23 +635,51 @@
             "type": "string",
             "example": "John Doe"
           },
+          "phoneNumber": {
+            "type": "string",
+            "example": "+123456789"
+          },
           "email": {
             "type": "string",
             "example": "johndoe@example.com"
           },
-          "phone": {
-            "type": "string",
-            "example": "+123456789"
-          },
-          "favorite": {
+          "isFavourite": {
             "type": "boolean",
             "example": false
+          },
+          "contactType": {
+            "type": "string",
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "example": "personal"
+          },
+          "userId": {
+            "type": "string",
+            "example": "64fc70a50bd51c6b53992e12"
+          },
+          "photo": {
+            "type": "string",
+            "format": "binary"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-15T09:34:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-15T10:12:00.000Z"
           }
         },
         "required": [
           "name",
-          "email",
-          "phone"
+          "phoneNumber",
+          "contactType",
+          "userId"
         ]
       },
       "error": {

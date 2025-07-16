@@ -24,7 +24,15 @@ requestBody:
             type: string
             format: email
             example: johndoe@example.com
-
+          phone:
+            type: string
+            example: '+123456789'
+          favorite:
+            type: boolean
+            example: false
+          contactType:
+            type: string
+            example: work
           photo:
             type: string
             format: binary
