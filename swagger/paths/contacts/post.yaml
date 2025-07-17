@@ -15,7 +15,7 @@ requestBody:
         required:
           - name
           - email
-          - phone
+          - phoneNumber
         properties:
           name:
             type: string
@@ -24,10 +24,10 @@ requestBody:
             type: string
             format: email
             example: johndoe@example.com
-          phone:
+          phoneNumber:
             type: string
             example: '+123456789'
-          favorite:
+          isFavourite:
             type: boolean
             example: false
           contactType:

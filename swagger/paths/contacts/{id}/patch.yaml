@@ -28,10 +28,10 @@ requestBody:
             type: string
             format: email
             example: johndoe@example.com
-          phone:
+          phoneNumber:
             type: string
             example: '+123456789'
-          favorite:
+          isFavourite:
             type: boolean
             example: true
           contactType:

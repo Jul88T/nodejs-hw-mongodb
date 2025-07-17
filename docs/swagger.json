@@ -203,7 +203,7 @@
                 "required": [
                   "name",
                   "email",
-                  "phone"
+                  "phoneNumber"
                 ],
                 "properties": {
                   "name": {
@@ -215,11 +215,11 @@
                     "format": "email",
                     "example": "johndoe@example.com"
                   },
-                  "phone": {
+                  "phoneNumber": {
                     "type": "string",
                     "example": "+123456789"
                   },
-                  "favorite": {
+                  "isFavourite": {
                     "type": "boolean",
                     "example": false
                   },
@@ -366,11 +366,11 @@
                     "format": "email",
                     "example": "johndoe@example.com"
                   },
-                  "phone": {
+                  "phoneNumber": {
                     "type": "string",
                     "example": "+123456789"
                   },
-                  "favorite": {
+                  "isFavourite": {
                     "type": "boolean",
                     "example": true
                   },
